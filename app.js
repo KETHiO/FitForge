@@ -3,14 +3,25 @@ let goal = 2200
 let foods = JSON.parse(localStorage.getItem("foods")) || []
 let workouts = JSON.parse(localStorage.getItem("workouts")) || []
 
-
 function updateCalories(){
 
 let consumed = foods.reduce((sum,food)=>sum + Number(food.calories),0)
 
+let protein = foods.reduce((sum,food)=>sum + Number(food.protein),0)
+
+let carbs = foods.reduce((sum,food)=>sum + Number(food.carbs),0)
+
+let fat = foods.reduce((sum,food)=>sum + Number(food.fat),0)
+
 document.getElementById("consumed").innerText = consumed
 
 document.getElementById("remaining").innerText = goal - consumed
+
+document.getElementById("proteinTotal").innerText = protein
+
+document.getElementById("carbsTotal").innerText = carbs
+
+document.getElementById("fatTotal").innerText = fat
 
 let percent = consumed / goal
 
@@ -22,7 +33,6 @@ document.getElementById("progressRing").style.strokeDashoffset = offset
 
 }
 
-
 function renderFoods(){
 
 let list = document.getElementById("foodList")
@@ -33,7 +43,10 @@ foods.forEach(food=>{
 
 let li=document.createElement("li")
 
-li.innerText = food.name + " - " + food.calories + " kcal"
+li.innerText = food.name + 
+" | " + food.calories + " kcal | P:" + food.protein +
+" C:" + food.carbs +
+" F:" + food.fat
 
 list.appendChild(li)
 
@@ -42,7 +55,6 @@ list.appendChild(li)
 updateCalories()
 
 }
-
 
 function renderWorkouts(){
 
@@ -62,15 +74,20 @@ list.appendChild(li)
 
 }
 
-
 function addFood(){
 
 let name=document.getElementById("foodName").value
 let calories=document.getElementById("foodCalories").value
+let protein=document.getElementById("foodProtein").value
+let carbs=document.getElementById("foodCarbs").value
+let fat=document.getElementById("foodFat").value
 
 foods.push({
 name:name,
-calories:calories
+calories:calories,
+protein:protein,
+carbs:carbs,
+fat:fat
 })
 
 localStorage.setItem("foods",JSON.stringify(foods))
@@ -78,7 +95,6 @@ localStorage.setItem("foods",JSON.stringify(foods))
 renderFoods()
 
 }
-
 
 function addWorkout(){
 
@@ -96,7 +112,6 @@ renderWorkouts()
 
 }
 
-
 function showPage(page){
 
 document.getElementById("dashboardPage").style.display="none"
@@ -108,7 +123,6 @@ document.getElementById(page).style.display="block"
 
 }
 
-
 function logout(){
 
 localStorage.removeItem("user")
@@ -116,8 +130,6 @@ localStorage.removeItem("user")
 window.location="login.html"
 
 }
-
-
 
 async function lookupFood(barcode){
 
@@ -135,21 +147,27 @@ let name = product.product_name || "Unknown food"
 
 let calories = product.nutriments["energy-kcal_100g"] || 0
 
-document.getElementById("foodName").value = name
+let protein = product.nutriments.proteins_100g || 0
 
+let carbs = product.nutriments.carbohydrates_100g || 0
+
+let fat = product.nutriments.fat_100g || 0
+
+document.getElementById("foodName").value = name
 document.getElementById("foodCalories").value = calories
+document.getElementById("foodProtein").value = protein
+document.getElementById("foodCarbs").value = carbs
+document.getElementById("foodFat").value = fat
 
 alert("Food detected: " + name)
 
 }else{
 
-alert("Food not found in database")
+alert("Food not found")
 
 }
 
 }
-
-
 
 function startScanner(){
 
@@ -187,7 +205,6 @@ lookupFood(barcode)
 })
 
 }
-
 
 renderFoods()
 renderWorkouts()
