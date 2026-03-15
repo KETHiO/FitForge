@@ -3,6 +3,72 @@ let goal = 2200
 let foods = JSON.parse(localStorage.getItem("foods")) || []
 let workouts = JSON.parse(localStorage.getItem("workouts")) || []
 
+let chart
+
+
+const exercises = {
+
+chest:[
+"Bench Press",
+"Incline Dumbbell Press",
+"Chest Fly",
+"Push-ups"
+],
+
+back:[
+"Pull-ups",
+"Lat Pulldown",
+"Barbell Row",
+"Seated Cable Row"
+],
+
+legs:[
+"Squats",
+"Leg Press",
+"Lunges",
+"Romanian Deadlift"
+],
+
+shoulders:[
+"Overhead Press",
+"Lateral Raise",
+"Front Raise",
+"Arnold Press"
+],
+
+arms:[
+"Bicep Curl",
+"Tricep Pushdown",
+"Hammer Curl",
+"Skull Crushers"
+]
+
+}
+
+
+function generateWorkout(){
+
+let muscle = document.getElementById("muscleSelect").value
+
+let workout = exercises[muscle]
+
+let list = document.getElementById("generatedWorkout")
+
+list.innerHTML=""
+
+workout.forEach(exercise=>{
+
+let li=document.createElement("li")
+
+li.innerText = exercise + " | 3 sets x 10 reps"
+
+list.appendChild(li)
+
+})
+
+}
+
+
 function updateCalories(){
 
 let consumed = foods.reduce((sum,food)=>sum + Number(food.calories),0)
@@ -14,13 +80,10 @@ let carbs = foods.reduce((sum,food)=>sum + Number(food.carbs),0)
 let fat = foods.reduce((sum,food)=>sum + Number(food.fat),0)
 
 document.getElementById("consumed").innerText = consumed
-
 document.getElementById("remaining").innerText = goal - consumed
 
 document.getElementById("proteinTotal").innerText = protein
-
 document.getElementById("carbsTotal").innerText = carbs
-
 document.getElementById("fatTotal").innerText = fat
 
 let percent = consumed / goal
@@ -31,7 +94,10 @@ let offset = circumference - (percent * circumference)
 
 document.getElementById("progressRing").style.strokeDashoffset = offset
 
+updateChart()
+
 }
+
 
 function renderFoods(){
 
@@ -43,8 +109,10 @@ foods.forEach(food=>{
 
 let li=document.createElement("li")
 
-li.innerText = food.name + 
-" | " + food.calories + " kcal | P:" + food.protein +
+li.innerText =
+food.name +
+" | " + food.calories + " kcal" +
+" P:" + food.protein +
 " C:" + food.carbs +
 " F:" + food.fat
 
@@ -56,6 +124,7 @@ updateCalories()
 
 }
 
+
 function renderWorkouts(){
 
 let list=document.getElementById("workoutList")
@@ -66,13 +135,20 @@ workouts.forEach(workout=>{
 
 let li=document.createElement("li")
 
-li.innerText = workout.exercise + " | " + workout.sets + " sets x " + workout.reps + " reps"
+li.innerText =
+workout.exercise +
+" | " +
+workout.sets +
+" sets x " +
+workout.reps +
+" reps"
 
 list.appendChild(li)
 
 })
 
 }
+
 
 function addFood(){
 
@@ -96,6 +172,7 @@ renderFoods()
 
 }
 
+
 function addWorkout(){
 
 let workout={
@@ -112,6 +189,7 @@ renderWorkouts()
 
 }
 
+
 function showPage(page){
 
 document.getElementById("dashboardPage").style.display="none"
@@ -123,6 +201,7 @@ document.getElementById(page).style.display="block"
 
 }
 
+
 function logout(){
 
 localStorage.removeItem("user")
@@ -131,80 +210,6 @@ window.location="login.html"
 
 }
 
-async function lookupFood(barcode){
-
-let url = "https://world.openfoodfacts.org/api/v0/product/" + barcode + ".json"
-
-let response = await fetch(url)
-
-let data = await response.json()
-
-if(data.status === 1){
-
-let product = data.product
-
-let name = product.product_name || "Unknown food"
-
-let calories = product.nutriments["energy-kcal_100g"] || 0
-
-let protein = product.nutriments.proteins_100g || 0
-
-let carbs = product.nutriments.carbohydrates_100g || 0
-
-let fat = product.nutriments.fat_100g || 0
-
-document.getElementById("foodName").value = name
-document.getElementById("foodCalories").value = calories
-document.getElementById("foodProtein").value = protein
-document.getElementById("foodCarbs").value = carbs
-document.getElementById("foodFat").value = fat
-
-alert("Food detected: " + name)
-
-}else{
-
-alert("Food not found")
-
-}
-
-}
-
-function startScanner(){
-
-Quagga.init({
-
-inputStream:{
-name:"Live",
-type:"LiveStream",
-target:document.querySelector("#scanner")
-},
-
-decoder:{
-readers:["ean_reader"]
-}
-
-},function(err){
-
-if(err){
-console.log(err)
-return
-}
-
-Quagga.start()
-
-})
-
-Quagga.onDetected(function(data){
-
-let barcode=data.codeResult.code
-
-Quagga.stop()
-
-lookupFood(barcode)
-
-})
-
-}
 
 renderFoods()
 renderWorkouts()
