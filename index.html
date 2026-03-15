@@ -4,13 +4,15 @@
 <head>
 <title>FitForge</title>
 <link rel="stylesheet" href="style.css">
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 
 <body>
 
-<h1>FitForge</h1>
+<h1>🏋️ FitForge</h1>
 
 <div id="dashboardPage">
 
@@ -28,7 +30,7 @@
 cx="80"
 cy="80"
 r="70"
-stroke="#28a745"
+stroke="#00c6ff"
 stroke-width="12"
 fill="none"
 stroke-dasharray="440"
@@ -45,12 +47,6 @@ stroke-dashoffset="440"/>
 
 <p>Goal: <span id="goal">2200</span></p>
 <p>Remaining: <span id="remaining">2200</span></p>
-
-<h3>Macros</h3>
-
-<p>Protein: <span id="proteinTotal">0</span> g</p>
-<p>Carbs: <span id="carbsTotal">0</span> g</p>
-<p>Fat: <span id="fatTotal">0</span> g</p>
 
 </div>
 
@@ -80,15 +76,16 @@ stroke-dashoffset="440"/>
 
 <div id="workoutPage" style="display:none">
 
-<h2>Muscle Tracker</h2>
+<h2>Muscle Trainer</h2>
 
-<div class="muscleGrid">
+<div class="bodyContainer">
 
-<div class="muscle" id="chest">Chest</div>
-<div class="muscle" id="back">Back</div>
-<div class="muscle" id="legs">Legs</div>
-<div class="muscle" id="shoulders">Shoulders</div>
-<div class="muscle" id="arms">Arms</div>
+<img src="https://i.imgur.com/8QfQG8P.png" class="body">
+
+<div class="muscle chest" id="chest"></div>
+<div class="muscle shoulders" id="shoulders"></div>
+<div class="muscle arms" id="arms"></div>
+<div class="muscle legs" id="legs"></div>
 
 </div>
 
@@ -97,26 +94,15 @@ stroke-dashoffset="440"/>
 <select id="muscleSelect">
 
 <option value="chest">Chest</option>
-<option value="back">Back</option>
-<option value="legs">Legs</option>
 <option value="shoulders">Shoulders</option>
 <option value="arms">Arms</option>
+<option value="legs">Legs</option>
 
 </select>
 
 <button onclick="generateWorkout()">Generate Workout</button>
 
 <ul id="generatedWorkout"></ul>
-
-<h2>Workout Log</h2>
-
-<input id="exerciseName" placeholder="Exercise">
-<input id="sets" placeholder="Sets">
-<input id="reps" placeholder="Reps">
-
-<button onclick="addWorkout()">Add Workout</button>
-
-<ul id="workoutList"></ul>
 
 </div>
 
@@ -144,4 +130,5 @@ stroke-dashoffset="440"/>
 <script src="app.js"></script>
 
 </body>
+
 </html>
