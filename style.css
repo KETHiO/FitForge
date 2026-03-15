@@ -8,59 +8,37 @@ color:white;
 padding-bottom:100px;
 }
 
-h1{
-text-align:center;
-margin-bottom:20px;
-}
-
 .dashboard{
 background:rgba(255,255,255,0.08);
 padding:20px;
 border-radius:16px;
-margin-bottom:20px;
 text-align:center;
-backdrop-filter:blur(10px);
 }
 
-input,select{
-display:block;
-width:100%;
-padding:12px;
-margin:8px 0;
-border-radius:10px;
-border:none;
-background:rgba(255,255,255,0.15);
-color:white;
+.ringContainer{
+position:relative;
+width:160px;
+height:160px;
+margin:auto;
 }
 
-button{
-padding:12px;
-background:linear-gradient(135deg,#00c6ff,#0072ff);
-border:none;
-border-radius:12px;
-color:white;
-font-weight:600;
-width:100%;
-margin-top:8px;
-}
-
-ul{
-background:rgba(255,255,255,0.08);
-padding:12px;
-border-radius:12px;
-list-style:none;
+.ringText{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+font-size:28px;
+font-weight:bold;
 }
 
 .bodyContainer{
 position:relative;
 width:200px;
 margin:auto;
-margin-bottom:20px;
 }
 
 .body{
 width:100%;
-opacity:0.8;
 }
 
 .muscle{
@@ -68,40 +46,16 @@ position:absolute;
 background:red;
 opacity:0;
 border-radius:8px;
-transition:0.3s;
 }
 
 .muscle.active{
 opacity:0.6;
 }
 
-.chest{
-top:80px;
-left:70px;
-width:60px;
-height:30px;
-}
-
-.shoulders{
-top:60px;
-left:55px;
-width:90px;
-height:25px;
-}
-
-.arms{
-top:90px;
-left:45px;
-width:110px;
-height:60px;
-}
-
-.legs{
-top:150px;
-left:70px;
-width:60px;
-height:90px;
-}
+.chest{top:80px;left:70px;width:60px;height:30px;}
+.shoulders{top:60px;left:55px;width:90px;height:25px;}
+.arms{top:90px;left:45px;width:110px;height:60px;}
+.legs{top:150px;left:70px;width:60px;height:90px;}
 
 .navBar{
 position:fixed;
@@ -109,7 +63,6 @@ bottom:0;
 left:0;
 right:0;
 background:rgba(0,0,0,0.4);
-backdrop-filter:blur(10px);
 display:flex;
 justify-content:space-around;
 padding:14px 0;
