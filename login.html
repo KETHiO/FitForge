@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 <title>FitForge Login</title>
 <link rel="stylesheet" href="style.css">
@@ -17,21 +18,43 @@
 
 <button onclick="login()">Login</button>
 
+<br><br>
+
+<button onclick="goSignup()">Create Account</button>
+
 </div>
 
 <script>
 
 function login(){
 
-let user=document.getElementById("username").value
+let username=document.getElementById("username").value
+let password=document.getElementById("password").value
 
-localStorage.setItem("user",user)
+let storedUser=JSON.parse(localStorage.getItem("account"))
+
+if(storedUser && username===storedUser.username && password===storedUser.password){
+
+localStorage.setItem("user",username)
 
 window.location="index.html"
+
+}else{
+
+alert("Incorrect username or password")
+
+}
+
+}
+
+function goSignup(){
+
+window.location="signup.html"
 
 }
 
 </script>
 
 </body>
+
 </html>
