@@ -13,6 +13,7 @@ let workoutPlan=[]
 let currentExercise=0
 let sets=0
 
+
 function addFood(){
 
 let name=document.getElementById("foodName").value
@@ -59,20 +60,13 @@ document.getElementById("progressRing").style.strokeDashoffset=offset
 
 }
 
+
 function startScanner(){
 
 Quagga.init({
 
-inputStream:{
-name:"Live",
-type:"LiveStream",
-target:document.querySelector("#scanner")
-},
-
-decoder:{
-readers:["ean_reader"]
-
-}
+inputStream:{name:"Live",type:"LiveStream",target:"#scanner"},
+decoder:{readers:["ean_reader"]}
 
 },function(err){
 
@@ -92,6 +86,7 @@ Quagga.stop()
 
 }
 
+
 function generateWorkout(){
 
 let muscle=document.getElementById("muscleSelect").value
@@ -107,7 +102,6 @@ list.innerHTML=""
 workoutPlan.forEach(e=>{
 
 let li=document.createElement("li")
-
 li.innerText=e+" | 3 sets x 10 reps"
 
 list.appendChild(li)
@@ -116,6 +110,7 @@ list.appendChild(li)
 
 }
 
+
 function highlightMuscle(muscle){
 
 document.querySelectorAll(".muscle").forEach(m=>m.classList.remove("active"))
@@ -123,6 +118,7 @@ document.querySelectorAll(".muscle").forEach(m=>m.classList.remove("active"))
 document.getElementById(muscle).classList.add("active")
 
 }
+
 
 function startWorkout(){
 
@@ -143,13 +139,14 @@ document.getElementById("setCounter").innerText=0
 
 }
 
+
 function completeSet(){
 
 sets++
-
 document.getElementById("setCounter").innerText=sets
 
 }
+
 
 function nextExercise(){
 
@@ -168,6 +165,7 @@ return
 loadExercise()
 
 }
+
 
 let timerInterval
 
@@ -192,6 +190,7 @@ clearInterval(timerInterval)
 },1000)
 
 }
+
 
 function showPage(page){
 
