@@ -1,17 +1,31 @@
+if(!localStorage.getItem("user")){
+window.location="login.html"
+}
+
 let foods = JSON.parse(localStorage.getItem("foods")) || []
 
 const exercises = {
 
 chest:["Bench Press","Incline Dumbbell Press","Chest Fly"],
+back:["Pull-ups","Lat Pulldown","Barbell Row"],
+legs:["Squat","Leg Press","Lunges"],
 shoulders:["Overhead Press","Lateral Raise","Arnold Press"],
-arms:["Barbell Curl","Hammer Curl","Tricep Pushdown"],
-legs:["Squat","Leg Press","Lunges"]
+arms:["Barbell Curl","Hammer Curl","Tricep Pushdown"]
 
 }
 
 let workoutPlan=[]
 let currentExercise=0
 let sets=0
+
+
+function logout(){
+
+localStorage.removeItem("user")
+
+window.location="login.html"
+
+}
 
 
 function addFood(){
@@ -28,6 +42,7 @@ updateCalories()
 
 }
 
+
 function renderFoods(){
 
 let list=document.getElementById("foodList")
@@ -37,6 +52,7 @@ list.innerHTML=""
 foods.forEach(food=>{
 
 let li=document.createElement("li")
+
 li.innerText=food.name+" - "+food.calories+" kcal"
 
 list.appendChild(li)
@@ -44,6 +60,7 @@ list.appendChild(li)
 })
 
 }
+
 
 function updateCalories(){
 
@@ -102,6 +119,7 @@ list.innerHTML=""
 workoutPlan.forEach(e=>{
 
 let li=document.createElement("li")
+
 li.innerText=e+" | 3 sets x 10 reps"
 
 list.appendChild(li)
@@ -115,7 +133,25 @@ function highlightMuscle(muscle){
 
 document.querySelectorAll(".muscle").forEach(m=>m.classList.remove("active"))
 
-document.getElementById(muscle).classList.add("active")
+let target=document.getElementById(muscle)
+
+if(target) target.classList.add("active")
+
+}
+
+
+function showFront(){
+
+document.getElementById("frontBody").style.display="block"
+document.getElementById("backBody").style.display="none"
+
+}
+
+
+function showBack(){
+
+document.getElementById("frontBody").style.display="none"
+document.getElementById("backBody").style.display="block"
 
 }
 
@@ -130,6 +166,7 @@ showPage("sessionPage")
 loadExercise()
 
 }
+
 
 function loadExercise(){
 
