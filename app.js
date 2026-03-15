@@ -1,15 +1,12 @@
-let goal = 2200
-
-let foods = JSON.parse(localStorage.getItem("foods")) || []
-let workouts = JSON.parse(localStorage.getItem("workouts")) || []
-
 const exercises = {
 
 chest:["Bench Press","Incline Dumbbell Press","Chest Fly","Push-ups"],
-back:["Pull-ups","Lat Pulldown","Barbell Row","Seated Cable Row"],
-legs:["Squats","Leg Press","Lunges","Romanian Deadlift"],
+
 shoulders:["Overhead Press","Lateral Raise","Arnold Press"],
-arms:["Bicep Curl","Tricep Pushdown","Hammer Curl"]
+
+arms:["Bicep Curl","Tricep Pushdown","Hammer Curl"],
+
+legs:["Squats","Leg Press","Lunges","Romanian Deadlift"]
 
 }
 
@@ -47,44 +44,6 @@ document.getElementById(muscle).classList.add("active")
 
 }
 
-function addWorkout(){
-
-let exercise=document.getElementById("exerciseName").value
-
-let sets=document.getElementById("sets").value
-
-let reps=document.getElementById("reps").value
-
-workouts.push({
-exercise:exercise,
-sets:sets,
-reps:reps
-})
-
-localStorage.setItem("workouts",JSON.stringify(workouts))
-
-renderWorkouts()
-
-}
-
-function renderWorkouts(){
-
-let list=document.getElementById("workoutList")
-
-list.innerHTML=""
-
-workouts.forEach(workout=>{
-
-let li=document.createElement("li")
-
-li.innerText=workout.exercise+" | "+workout.sets+"x"+workout.reps
-
-list.appendChild(li)
-
-})
-
-}
-
 function showPage(page){
 
 document.getElementById("dashboardPage").style.display="none"
@@ -95,5 +54,3 @@ document.getElementById("profilePage").style.display="none"
 document.getElementById(page).style.display="block"
 
 }
-
-renderWorkouts()
