@@ -1,16 +1,11 @@
 let foods = JSON.parse(localStorage.getItem("foods")) || []
 
-const exerciseLibrary = {
+const exercises = {
 
 chest:["Bench Press","Incline Dumbbell Press","Chest Fly"],
-
-back:["Pull-ups","Lat Pulldown","Barbell Row"],
-
-legs:["Squat","Leg Press","Lunges"],
-
 shoulders:["Overhead Press","Lateral Raise","Arnold Press"],
-
-arms:["Barbell Curl","Hammer Curl","Tricep Pushdown"]
+arms:["Barbell Curl","Hammer Curl","Tricep Pushdown"],
+legs:["Squat","Leg Press","Lunges"]
 
 }
 
@@ -18,14 +13,9 @@ let workoutPlan=[]
 let currentExercise=0
 let sets=0
 
-
-
-/* FOOD SYSTEM */
-
 function addFood(){
 
 let name=document.getElementById("foodName").value
-
 let calories=document.getElementById("foodCalories").value
 
 foods.push({name,calories})
@@ -33,6 +23,7 @@ foods.push({name,calories})
 localStorage.setItem("foods",JSON.stringify(foods))
 
 renderFoods()
+updateCalories()
 
 }
 
@@ -45,7 +36,6 @@ list.innerHTML=""
 foods.forEach(food=>{
 
 let li=document.createElement("li")
-
 li.innerText=food.name+" - "+food.calories+" kcal"
 
 list.appendChild(li)
@@ -54,9 +44,20 @@ list.appendChild(li)
 
 }
 
+function updateCalories(){
 
+let consumed=foods.reduce((sum,f)=>sum+Number(f.calories),0)
 
-/* BARCODE SCANNER */
+document.getElementById("consumed").innerText=consumed
+
+let percent=consumed/2200
+
+let circumference=440
+let offset=circumference-(percent*circumference)
+
+document.getElementById("progressRing").style.strokeDashoffset=offset
+
+}
 
 function startScanner(){
 
@@ -70,6 +71,7 @@ target:document.querySelector("#scanner")
 
 decoder:{
 readers:["ean_reader"]
+
 }
 
 },function(err){
@@ -82,9 +84,7 @@ Quagga.start()
 
 Quagga.onDetected(function(data){
 
-let code=data.codeResult.code
-
-alert("Barcode: "+code)
+alert("Barcode: "+data.codeResult.code)
 
 Quagga.stop()
 
@@ -92,25 +92,23 @@ Quagga.stop()
 
 }
 
-
-
-/* WORKOUT BUILDER */
-
 function generateWorkout(){
 
 let muscle=document.getElementById("muscleSelect").value
 
-workoutPlan=exerciseLibrary[muscle]
+highlightMuscle(muscle)
+
+workoutPlan=exercises[muscle]
 
 let list=document.getElementById("generatedWorkout")
 
 list.innerHTML=""
 
-workoutPlan.forEach(exercise=>{
+workoutPlan.forEach(e=>{
 
 let li=document.createElement("li")
 
-li.innerText=exercise+" | 3 sets x 10 reps"
+li.innerText=e+" | 3 sets x 10 reps"
 
 list.appendChild(li)
 
@@ -118,14 +116,17 @@ list.appendChild(li)
 
 }
 
+function highlightMuscle(muscle){
 
+document.querySelectorAll(".muscle").forEach(m=>m.classList.remove("active"))
 
-/* WORKOUT SESSION */
+document.getElementById(muscle).classList.add("active")
+
+}
 
 function startWorkout(){
 
 currentExercise=0
-
 sets=0
 
 showPage("sessionPage")
@@ -136,13 +137,9 @@ loadExercise()
 
 function loadExercise(){
 
-document.getElementById("sessionExercise").innerText=
+document.getElementById("sessionExercise").innerText=workoutPlan[currentExercise]
 
-workoutPlan[currentExercise]
-
-document.getElementById("setCounter").innerText="0"
-
-sets=0
+document.getElementById("setCounter").innerText=0
 
 }
 
@@ -152,12 +149,6 @@ sets++
 
 document.getElementById("setCounter").innerText=sets
 
-if(sets>=3){
-
-alert("Exercise complete!")
-
-}
-
 }
 
 function nextExercise(){
@@ -166,7 +157,7 @@ currentExercise++
 
 if(currentExercise>=workoutPlan.length){
 
-alert("Workout complete!")
+alert("Workout Complete")
 
 showPage("dashboardPage")
 
@@ -178,17 +169,11 @@ loadExercise()
 
 }
 
-
-
-/* REST TIMER */
-
 let timerInterval
 
 function startTimer(){
 
 let time=60
-
-document.getElementById("timer").innerText=time
 
 clearInterval(timerInterval)
 
@@ -208,10 +193,6 @@ clearInterval(timerInterval)
 
 }
 
-
-
-/* NAVIGATION */
-
 function showPage(page){
 
 document.getElementById("dashboardPage").style.display="none"
@@ -224,3 +205,4 @@ document.getElementById(page).style.display="block"
 }
 
 renderFoods()
+updateCalories()
