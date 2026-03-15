@@ -4,10 +4,6 @@
 <head>
 <title>FitForge</title>
 <link rel="stylesheet" href="style.css">
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 </head>
 
 <body>
@@ -66,10 +62,6 @@ stroke-dashoffset="440"/>
 
 <button onclick="addFood()">Add Food</button>
 
-<button onclick="startScanner()">📷 Scan Barcode</button>
-
-<div id="scanner"></div>
-
 <ul id="foodList"></ul>
 
 </div>
@@ -78,35 +70,37 @@ stroke-dashoffset="440"/>
 
 <div id="workoutPage" style="display:none">
 
-<h2>Muscle Trainer</h2>
-
-<div class="bodyContainer">
-
-<img src="https://i.imgur.com/8QfQG8P.png" class="body">
-
-<div class="muscle chest" id="chest"></div>
-<div class="muscle shoulders" id="shoulders"></div>
-<div class="muscle arms" id="arms"></div>
-<div class="muscle legs" id="legs"></div>
-
-</div>
-
-<h2>Workout Generator</h2>
+<h2>Workout Builder</h2>
 
 <select id="muscleSelect">
 
 <option value="chest">Chest</option>
+<option value="back">Back</option>
+<option value="legs">Legs</option>
 <option value="shoulders">Shoulders</option>
 <option value="arms">Arms</option>
-<option value="legs">Legs</option>
 
 </select>
 
 <button onclick="generateWorkout()">Generate Workout</button>
 
-<button onclick="suggestWorkout()">Suggest Workout</button>
-
 <ul id="generatedWorkout"></ul>
+
+</div>
+
+
+
+<div id="exerciseDemo" class="demoPanel" style="display:none">
+
+<h2 id="demoTitle"></h2>
+
+<video id="demoVideo" controls width="100%"></video>
+
+<p id="demoMuscle"></p>
+
+<p id="demoInstructions"></p>
+
+<button onclick="closeDemo()">Close</button>
 
 </div>
 
