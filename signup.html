@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Create Account</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="login-page">
+
+<div class="login-box">
+
+<h1>Create Account</h1>
+
+<input id="newUsername" placeholder="Username">
+
+<input id="newPassword" type="password" placeholder="Password">
+
+<button onclick="createAccount()">Create Account</button>
+
+</div>
+
+<script>
+
+function createAccount(){
+
+let username=document.getElementById("newUsername").value
+let password=document.getElementById("newPassword").value
+
+let account={
+username:username,
+password:password
+}
+
+localStorage.setItem("account",JSON.stringify(account))
+
+alert("Account created! Please login.")
+
+window.location="login.html"
+
+}
+
+</script>
+
+</body>
+
+</html>
