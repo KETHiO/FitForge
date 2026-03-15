@@ -54,13 +54,6 @@ stroke-dashoffset="440"/>
 
 </div>
 
-<div class="dashboard">
-
-<h2>Nutrition Chart</h2>
-<canvas id="calorieChart"></canvas>
-
-</div>
-
 </div>
 
 
@@ -86,6 +79,18 @@ stroke-dashoffset="440"/>
 
 
 <div id="workoutPage" style="display:none">
+
+<h2>Muscle Tracker</h2>
+
+<div class="muscleGrid">
+
+<div class="muscle" id="chest">Chest</div>
+<div class="muscle" id="back">Back</div>
+<div class="muscle" id="legs">Legs</div>
+<div class="muscle" id="shoulders">Shoulders</div>
+<div class="muscle" id="arms">Arms</div>
+
+</div>
 
 <h2>Workout Generator</h2>
 
@@ -130,11 +135,8 @@ stroke-dashoffset="440"/>
 <div class="navBar">
 
 <button onclick="showPage('dashboardPage')">🏠<br>Home</button>
-
 <button onclick="showPage('foodPage')">🍎<br>Food</button>
-
 <button onclick="showPage('workoutPage')">💪<br>Workout</button>
-
 <button onclick="showPage('profilePage')">👤<br>Profile</button>
 
 </div>
