@@ -1,31 +1,31 @@
 const workouts = {
 
 chest:[
-{exercise:"Bench Press",sets:"4",reps:"8"},
-{exercise:"Incline Dumbbell Press",sets:"3",reps:"10"},
-{exercise:"Chest Fly",sets:"3",reps:"12"},
-{exercise:"Tricep Pushdown",sets:"3",reps:"12"}
+"Bench Press",
+"Incline Dumbbell Press",
+"Chest Fly",
+"Tricep Pushdown"
 ],
 
 shoulders:[
-{exercise:"Overhead Press",sets:"4",reps:"8"},
-{exercise:"Lateral Raise",sets:"3",reps:"12"},
-{exercise:"Arnold Press",sets:"3",reps:"10"},
-{exercise:"Face Pull",sets:"3",reps:"12"}
+"Overhead Press",
+"Lateral Raise",
+"Arnold Press",
+"Face Pull"
 ],
 
 arms:[
-{exercise:"Barbell Curl",sets:"4",reps:"10"},
-{exercise:"Hammer Curl",sets:"3",reps:"12"},
-{exercise:"Tricep Pushdown",sets:"3",reps:"12"},
-{exercise:"Skull Crushers",sets:"3",reps:"10"}
+"Barbell Curl",
+"Hammer Curl",
+"Tricep Pushdown",
+"Skull Crushers"
 ],
 
 legs:[
-{exercise:"Squat",sets:"4",reps:"6"},
-{exercise:"Leg Press",sets:"3",reps:"10"},
-{exercise:"Lunges",sets:"3",reps:"12"},
-{exercise:"Romanian Deadlift",sets:"3",reps:"10"}
+"Squat",
+"Leg Press",
+"Lunges",
+"Romanian Deadlift"
 ]
 
 }
@@ -40,6 +40,10 @@ arms:100,
 legs:100
 
 }
+
+
+
+let history = JSON.parse(localStorage.getItem("history")) || {}
 
 
 
@@ -75,15 +79,50 @@ title.innerText=muscle.toUpperCase()+" WORKOUT"
 
 list.appendChild(title)
 
-plan.forEach(item=>{
+plan.forEach(exercise=>{
+
+let lastWeight = history[exercise] || 20
+
+let suggested = Math.round((lastWeight + 2.5)*10)/10
 
 let li=document.createElement("li")
 
-li.innerText=item.exercise+" — "+item.sets+" sets x "+item.reps+" reps"
+li.innerHTML = `
+${exercise}
+<br>
+Last: ${lastWeight} kg
+<br>
+Suggested: ${suggested} kg
+<br>
+<input placeholder="Weight used (kg)" id="${exercise}">
+<button onclick="saveWeight('${exercise}',${suggested})">Save</button>
+`
 
 list.appendChild(li)
 
 })
+
+}
+
+
+
+function saveWeight(exercise,suggested){
+
+let input=document.getElementById(exercise)
+
+let weight=input.value
+
+if(weight===""){
+
+weight=suggested
+
+}
+
+history[exercise]=parseFloat(weight)
+
+localStorage.setItem("history",JSON.stringify(history))
+
+alert("Workout saved!")
 
 }
 
