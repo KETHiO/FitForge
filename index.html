@@ -16,15 +16,45 @@
 
 <h2>Daily Calories</h2>
 
+<div class="ringContainer">
+
+<svg width="160" height="160">
+
+<circle
+cx="80"
+cy="80"
+r="70"
+stroke="#eee"
+stroke-width="12"
+fill="none"
+/>
+
+<circle
+id="progressRing"
+cx="80"
+cy="80"
+r="70"
+stroke="#28a745"
+stroke-width="12"
+fill="none"
+stroke-dasharray="440"
+stroke-dashoffset="440"
+/>
+
+</svg>
+
+<div class="ringText">
+
+<p id="consumed">0</p>
+<span>cal</span>
+
+</div>
+
+</div>
+
 <p>Goal: <span id="goal">2200</span></p>
 
-<p>Consumed: <span id="consumed">0</span></p>
-
 <p>Remaining: <span id="remaining">2200</span></p>
-
-<div class="progress-bar">
-<div id="progress"></div>
-</div>
 
 </div>
 
@@ -72,13 +102,29 @@
 
 <div class="navBar">
 
-<button onclick="showPage('dashboardPage')">Home</button>
+<button onclick="showPage('dashboardPage')">
+🏠
+<br>
+Home
+</button>
 
-<button onclick="showPage('foodPage')">Food</button>
+<button onclick="showPage('foodPage')">
+🍎
+<br>
+Food
+</button>
 
-<button onclick="showPage('workoutPage')">Workouts</button>
+<button onclick="showPage('workoutPage')">
+💪
+<br>
+Workouts
+</button>
 
-<button onclick="showPage('profilePage')">Profile</button>
+<button onclick="showPage('profilePage')">
+👤
+<br>
+Profile
+</button>
 
 </div>
 
