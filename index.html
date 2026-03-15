@@ -5,6 +5,7 @@
 <title>FitForge</title>
 <link rel="stylesheet" href="style.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -43,7 +44,6 @@ stroke-dashoffset="440"/>
 </div>
 
 <p>Goal: <span id="goal">2200</span></p>
-
 <p>Remaining: <span id="remaining">2200</span></p>
 
 <h3>Macros</h3>
@@ -54,7 +54,15 @@ stroke-dashoffset="440"/>
 
 </div>
 
+<div class="dashboard">
+
+<h2>Nutrition Chart</h2>
+<canvas id="calorieChart"></canvas>
+
 </div>
+
+</div>
+
 
 <div id="foodPage" style="display:none">
 
@@ -76,7 +84,24 @@ stroke-dashoffset="440"/>
 
 </div>
 
+
 <div id="workoutPage" style="display:none">
+
+<h2>Workout Generator</h2>
+
+<select id="muscleSelect">
+
+<option value="chest">Chest</option>
+<option value="back">Back</option>
+<option value="legs">Legs</option>
+<option value="shoulders">Shoulders</option>
+<option value="arms">Arms</option>
+
+</select>
+
+<button onclick="generateWorkout()">Generate Workout</button>
+
+<ul id="generatedWorkout"></ul>
 
 <h2>Workout Log</h2>
 
@@ -90,6 +115,7 @@ stroke-dashoffset="440"/>
 
 </div>
 
+
 <div id="profilePage" style="display:none">
 
 <h2>Profile</h2>
@@ -100,13 +126,14 @@ stroke-dashoffset="440"/>
 
 </div>
 
+
 <div class="navBar">
 
 <button onclick="showPage('dashboardPage')">🏠<br>Home</button>
 
 <button onclick="showPage('foodPage')">🍎<br>Food</button>
 
-<button onclick="showPage('workoutPage')">💪<br>Workouts</button>
+<button onclick="showPage('workoutPage')">💪<br>Workout</button>
 
 <button onclick="showPage('profilePage')">👤<br>Profile</button>
 
