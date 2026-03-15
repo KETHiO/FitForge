@@ -4,6 +4,7 @@
 <head>
 <title>FitForge</title>
 <link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
 </head>
 
 <body>
@@ -20,68 +21,54 @@
 
 <svg width="160" height="160">
 
-<circle
-cx="80"
-cy="80"
-r="70"
-stroke="#eee"
-stroke-width="12"
-fill="none"
-/>
+<circle cx="80" cy="80" r="70" stroke="#eee" stroke-width="12" fill="none"/>
 
-<circle
-id="progressRing"
-cx="80"
-cy="80"
-r="70"
-stroke="#28a745"
-stroke-width="12"
-fill="none"
+<circle id="progressRing" cx="80" cy="80" r="70" stroke="#28a745"
+stroke-width="12" fill="none"
 stroke-dasharray="440"
-stroke-dashoffset="440"
-/>
+stroke-dashoffset="440"/>
 
 </svg>
 
 <div class="ringText">
-
 <p id="consumed">0</p>
 <span>cal</span>
-
 </div>
 
 </div>
 
 <p>Goal: <span id="goal">2200</span></p>
-
 <p>Remaining: <span id="remaining">2200</span></p>
 
 </div>
 
 </div>
 
+
 <div id="foodPage" style="display:none">
 
 <h2>Add Food</h2>
 
 <input id="foodName" placeholder="Food name">
-
 <input id="foodCalories" placeholder="Calories">
 
 <button onclick="addFood()">Add Food</button>
 
+<button onclick="startScanner()">📷 Scan Barcode</button>
+
+<div id="scanner"></div>
+
 <ul id="foodList"></ul>
 
 </div>
+
 
 <div id="workoutPage" style="display:none">
 
 <h2>Workout Log</h2>
 
 <input id="exerciseName" placeholder="Exercise">
-
 <input id="sets" placeholder="Sets">
-
 <input id="reps" placeholder="Reps">
 
 <button onclick="addWorkout()">Add Workout</button>
@@ -89,6 +76,7 @@ stroke-dashoffset="440"
 <ul id="workoutList"></ul>
 
 </div>
+
 
 <div id="profilePage" style="display:none">
 
@@ -100,36 +88,20 @@ stroke-dashoffset="440"
 
 </div>
 
+
 <div class="navBar">
 
-<button onclick="showPage('dashboardPage')">
-🏠
-<br>
-Home
-</button>
+<button onclick="showPage('dashboardPage')">🏠<br>Home</button>
 
-<button onclick="showPage('foodPage')">
-🍎
-<br>
-Food
-</button>
+<button onclick="showPage('foodPage')">🍎<br>Food</button>
 
-<button onclick="showPage('workoutPage')">
-💪
-<br>
-Workouts
-</button>
+<button onclick="showPage('workoutPage')">💪<br>Workouts</button>
 
-<button onclick="showPage('profilePage')">
-👤
-<br>
-Profile
-</button>
+<button onclick="showPage('profilePage')">👤<br>Profile</button>
 
 </div>
 
 <script src="app.js"></script>
 
 </body>
-
 </html>
